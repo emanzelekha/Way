@@ -7,4 +7,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorRed">#e97858</color>
+    <color name="colorBlueFacebook">#3b5999</color>
+    <color name="colorBlueTwitter">#55acef</color>
+    <color name="colorRedGoogle">#de4b39</color>
 </resources>
