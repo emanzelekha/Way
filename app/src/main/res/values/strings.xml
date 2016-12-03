@@ -14,9 +14,11 @@
     <string name="label_forget_password">Forget Password?</string>
     <string name="label_reset">Reset</string>
     <string name="label_or">Or</string>
-    <string name="msg_please_enter">Please enter</string>
-    <string name="msg_enter_valid_email">Please, enter valid email</string>
-    <string name="msg_enter_valid_phone">Please, enter valid phone</string>
-    <string name="msg_enter_valid_password">Password do not match</string>
-
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_i_accept_business_way">I accept Business Way</string>
+    <string name="label_terms_and_conditions">terms and conditions</string>
+    <string name="label_register">Register</string>
+    <string name="label_sign_up">Sign up</string>
 </resources>
