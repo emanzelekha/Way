@@ -103,6 +103,9 @@ public class AnimationManager {
     public static void slideFromDownWithDistance(View view, int distance, int duration, int delayDuration){
         translate(view, duration, delayDuration, 0, 0, distance, 0);
     }
+    public static void slideDownWithDistance(View view, int distance, int duration, int delayDuration){
+        translate(view, duration, delayDuration, 0, 0, 0, distance);
+    }
 
     private static void translate(final View view, int duration, int delayDuration, float fromXDelta, float toXDelta, float fromYDelta, float toYDelta) {
         TranslateAnimation animate = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);

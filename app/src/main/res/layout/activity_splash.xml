@@ -153,6 +153,7 @@
                 android:textColor="@color/colorRed" />
 
             <Button
+                android:id="@+id/login_entry_register_button"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -402,10 +403,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/register_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/register_toolbar"
@@ -420,7 +422,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
-        android:visibility="gone">
+        android:visibility="invisible">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -558,7 +560,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/shape_rectc_border_red"
-                android:text="@string/label_register"
+                android:text="@string/label_create_account"
                 android:textColor="@color/colorRed"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>

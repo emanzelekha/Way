@@ -21,4 +21,9 @@
     <string name="label_terms_and_conditions">terms and conditions</string>
     <string name="label_register">Register</string>
     <string name="label_sign_up">Sign up</string>
+    <string name="msg_please_enter">Please enter</string>
+    <string name="msg_enter_valid_email">Please, enter valid email</string>
+    <string name="msg_enter_valid_phone">Please, enter valid phone</string>
+    <string name="msg_enter_valid_password">Password do not match</string>
+
 </resources>
