@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Business Way</string>
     <string name="action_settings">Settings</string>
+    <string name="label_like">Like</string>
+    <string name="label_comment">Comment</string>
+    <string name="label_share">Share</string>
+    <string name="label_search">Search</string>
     <string name="label_welcome_to_business_way">Welcome to Business Way</string>
     <string name="label_login">Login</string>
     <string name="label_create_account">Create Account</string>
@@ -10,4 +14,9 @@
     <string name="label_forget_password">Forget Password?</string>
     <string name="label_reset">Reset</string>
     <string name="label_or">Or</string>
+    <string name="msg_please_enter">Please enter</string>
+    <string name="msg_enter_valid_email">Please, enter valid email</string>
+    <string name="msg_enter_valid_phone">Please, enter valid phone</string>
+    <string name="msg_enter_valid_password">Password do not match</string>
+
 </resources>

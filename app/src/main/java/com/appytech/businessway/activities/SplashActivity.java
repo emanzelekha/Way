@@ -1,7 +1,9 @@
-package com.appytech.businessway;
+package com.appytech.businessway.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.appytech.businessway.R;
 
 public class SplashActivity extends AppCompatActivity {
 
