@@ -228,21 +228,35 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/login_email_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/label_email"
                     android:inputType="textEmailAddress" />
 
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/login_password_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/label_password"
                     android:inputType="textPassword" />
+
+                </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -399,6 +413,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/register_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -557,8 +572,6 @@
                 android:id="@+id/register_register_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:background="@drawable/shape_rectc_border_red"
                 android:text="@string/label_create_account"
                 android:textColor="@color/colorRed"
