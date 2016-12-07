@@ -31,7 +31,7 @@ import retrofit2.http.Query;
 
 public class APIManager{
 
-    public static final String URL_BASE="188.241.115.32:8080/";
+    public static final String URL_BASE="http://188.241.115.32:8080/";
     private static final boolean SHOW_CHECK_SERVER_DIALOG=false;
 
     public static final String TAG_PARENT_ID ="parentID";
