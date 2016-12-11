@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
-        android:padding="10dp">
-
+        android:paddingTop="15dp">
 
         <LinearLayout
             android:id="@+id/main_home_layout"
@@ -27,16 +26,18 @@
             <ImageView
                 android:id="@+id/main_home_imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="2dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_home" />
+                android:src="@drawable/icon_selected_home" />
 
             <ImageView
                 android:id="@+id/main_home_line_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="5dp"
                 android:src="@color/colorPrimary" />
         </LinearLayout>
@@ -51,19 +52,20 @@
             <ImageView
                 android:id="@+id/main_card_imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_card"
-                android:layout_gravity="center"/>
+                android:src="@drawable/icon_card" />
 
             <ImageView
                 android:id="@+id/main_card_line_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/colorPrimary" />
+                android:src="@color/colorGrey" />
         </LinearLayout>
 
         <LinearLayout
@@ -76,44 +78,46 @@
             <ImageView
                 android:id="@+id/main_nearby_imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_nearby"
-                android:layout_gravity="center"/>
+                android:src="@drawable/icon_nearby" />
 
             <ImageView
                 android:id="@+id/main_nearby_line_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/colorPrimary" />
+                android:src="@color/colorGrey" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/main_menu_layout"
+            android:id="@+id/main_more_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/main_menu_imageView"
+                android:id="@+id/main_more_imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_menu"
-                android:layout_gravity="center"/>
+                android:src="@drawable/ic_menu" />
 
             <ImageView
-                android:id="@+id/main_menu_line_imageView"
+                android:id="@+id/main_more_line_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="5dp"
-                android:src="@color/colorPrimary" />
+                android:src="@color/colorGrey" />
 
         </LinearLayout>
     </LinearLayout>
@@ -125,12 +129,12 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_posts_recyclerView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/recycler_item_post"
-        android:layout_margin="8dp"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/main_container_layout"/>
+
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_coordinatorLayout"
@@ -150,7 +154,7 @@
                 android:layout_gravity="bottom"
                 android:background="@color/colorWhite"
                 app:tabMode="scrollable"
-                app:tabTextAppearance="@style/MyCustomTextAppearance"/>
+                app:tabTextAppearance="@style/MyCustomTextAppearance" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
@@ -158,8 +162,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="4dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
+
 
 </LinearLayout>

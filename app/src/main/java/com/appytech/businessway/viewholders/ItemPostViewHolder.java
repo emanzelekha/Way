@@ -13,6 +13,7 @@ import com.appytech.businessway.R;
 
 public class ItemPostViewHolder extends RecyclerView.ViewHolder {
     private LinearLayout itemPostCardView;
+    private LinearLayout postBodyLayout;
     private ImageView itemPostUserPictureImageView;
     private TextView itemPostUsernameTextView;
     private TextView itemPostDateTextView;
@@ -22,13 +23,15 @@ public class ItemPostViewHolder extends RecyclerView.ViewHolder {
     private CardView itemPostPictureLayout;
     private ImageView itemPostPictureImageView;
     private LinearLayout itemPostSharedLayout;
-    private ImageView itemPostSharedUserPictureImageView;
-    private TextView itemPostSharedUsernameTextView;
-    private TextView itemPostSharedDateTextView;
-    private TextView itemPostSharedTitleTextView;
-    private TextView itemPostSharedBodyTextView;
-    private CardView itemPostSharedPictureLayout;
-    private ImageView itemPostSharedPictureImageView;
+    private LinearLayout postSharedBodyLayout;
+    private ImageView itemPostUserPictureImageView2;
+    private TextView itemPostUsernameTextView2;
+    private TextView itemPostDateTextView2;
+    private ImageView itemPostMoreImageView2;
+    private TextView itemPostTitleTextView2;
+    private TextView itemPostBodyTextView2;
+    private CardView itemPostPictureLayout2;
+    private ImageView itemPostPictureImageView2;
     private LinearLayout itemPostLikeLayout;
     private ImageView itemPostLikeImageView;
     private LinearLayout itemPostCommentLayout;
@@ -43,22 +46,25 @@ public class ItemPostViewHolder extends RecyclerView.ViewHolder {
     public ItemPostViewHolder(View view) {
         super(view);
         itemPostCardView = (LinearLayout) view.findViewById(R.id.item_post_cardView);
-        itemPostUserPictureImageView = (ImageView) itemPostCardView.findViewById(R.id.item_post_user_picture_imageView);
-        itemPostUsernameTextView = (TextView) itemPostCardView.findViewById(R.id.item_post_username_textView);
-        itemPostDateTextView = (TextView) itemPostCardView.findViewById(R.id.item_post_date_textView);
-        itemPostMoreImageView = (ImageView) itemPostCardView.findViewById(R.id.item_post_more_imageView);
-        itemPostTitleTextView = (TextView) itemPostCardView.findViewById(R.id.item_post_title_textView);
-        itemPostBodyTextView = (TextView) itemPostCardView.findViewById(R.id.item_post_body_textView);
-        itemPostPictureLayout = (CardView) itemPostCardView.findViewById(R.id.item_post_picture_layout);
+        postBodyLayout = (LinearLayout) itemPostCardView.findViewById(R.id.post_body_layout);
+        itemPostUserPictureImageView = (ImageView) postBodyLayout.findViewById(R.id.item_post_user_picture_imageView);
+        itemPostUsernameTextView = (TextView) postBodyLayout.findViewById(R.id.item_post_username_textView);
+        itemPostDateTextView = (TextView) postBodyLayout.findViewById(R.id.item_post_date_textView);
+        itemPostMoreImageView = (ImageView) postBodyLayout.findViewById(R.id.item_post_more_imageView);
+        itemPostTitleTextView = (TextView) postBodyLayout.findViewById(R.id.item_post_title_textView);
+        itemPostBodyTextView = (TextView) postBodyLayout.findViewById(R.id.item_post_body_textView);
+        itemPostPictureLayout = (CardView) postBodyLayout.findViewById(R.id.item_post_picture_layout);
         itemPostPictureImageView = (ImageView) itemPostPictureLayout.findViewById(R.id.item_post_picture_imageView);
         itemPostSharedLayout = (LinearLayout) itemPostCardView.findViewById(R.id.item_post_shared_layout);
-        itemPostSharedUserPictureImageView = (ImageView) itemPostSharedLayout.findViewById(R.id.item_post_shared_user_picture_imageView);
-        itemPostSharedUsernameTextView = (TextView) itemPostSharedLayout.findViewById(R.id.item_post_shared_username_textView);
-        itemPostSharedDateTextView = (TextView) itemPostSharedLayout.findViewById(R.id.item_post_shared_date_textView);
-        itemPostSharedTitleTextView = (TextView) itemPostSharedLayout.findViewById(R.id.item_post_shared_title_textView);
-        itemPostSharedBodyTextView = (TextView) itemPostSharedLayout.findViewById(R.id.item_post_shared_body_textView);
-        itemPostSharedPictureLayout = (CardView) itemPostSharedLayout.findViewById(R.id.item_post_shared_picture_layout);
-        itemPostSharedPictureImageView = (ImageView) itemPostSharedPictureLayout.findViewById(R.id.item_post_shared_picture_imageView);
+        postSharedBodyLayout = (LinearLayout) itemPostSharedLayout.findViewById(R.id.post_shared_body_layout);
+        itemPostUserPictureImageView2 = (ImageView) postSharedBodyLayout.findViewById(R.id.item_post_user_picture_imageView);
+        itemPostUsernameTextView2 = (TextView) postSharedBodyLayout.findViewById(R.id.item_post_username_textView);
+        itemPostDateTextView2 = (TextView) postSharedBodyLayout.findViewById(R.id.item_post_date_textView);
+        itemPostMoreImageView2 = (ImageView) postSharedBodyLayout.findViewById(R.id.item_post_more_imageView);
+        itemPostTitleTextView2 = (TextView) postSharedBodyLayout.findViewById(R.id.item_post_title_textView);
+        itemPostBodyTextView2 = (TextView) postSharedBodyLayout.findViewById(R.id.item_post_body_textView);
+        itemPostPictureLayout2 = (CardView) postSharedBodyLayout.findViewById(R.id.item_post_picture_layout);
+        itemPostPictureImageView2 = (ImageView) itemPostPictureLayout2.findViewById(R.id.item_post_picture_imageView);
         itemPostLikeLayout = (LinearLayout) itemPostCardView.findViewById(R.id.item_post_like_layout);
         itemPostLikeImageView = (ImageView) itemPostLikeLayout.findViewById(R.id.item_post_like_imageView);
         itemPostCommentLayout = (LinearLayout) itemPostCardView.findViewById(R.id.item_post_comment_layout);
@@ -67,12 +73,92 @@ public class ItemPostViewHolder extends RecyclerView.ViewHolder {
         itemPostShareImageView = (ImageView) itemPostShareLayout.findViewById(R.id.item_post_share_imageView);
     }
 
-    public ImageView getItemPostSharedUserPictureImageView() {
-        return itemPostSharedUserPictureImageView;
+    public ImageView getItemPostPictureImageView2() {
+        return itemPostPictureImageView2;
+    }
+
+    public ImageView getItemPostPictureImageView() {
+        return itemPostPictureImageView;
+    }
+
+    public LinearLayout getItemPostCardView() {
+        return itemPostCardView;
+    }
+
+    public TextView getItemPostBodyTextView2() {
+        return itemPostBodyTextView2;
     }
 
     public ImageView getItemPostLikeImageView() {
         return itemPostLikeImageView;
+    }
+
+    public LinearLayout getItemPostCommentLayout() {
+        return itemPostCommentLayout;
+    }
+
+    public LinearLayout getItemPostShareLayout() {
+        return itemPostShareLayout;
+    }
+
+    public LinearLayout getPostBodyLayout() {
+        return postBodyLayout;
+    }
+
+    public ImageView getItemPostMoreImageView() {
+        return itemPostMoreImageView;
+    }
+
+    public LinearLayout getItemPostLikeLayout() {
+        return itemPostLikeLayout;
+    }
+
+    public LinearLayout getItemPostSharedLayout() {
+        return itemPostSharedLayout;
+    }
+
+    public CardView getItemPostPictureLayout2() {
+        return itemPostPictureLayout2;
+    }
+
+    public ImageView getItemPostUserPictureImageView() {
+        return itemPostUserPictureImageView;
+    }
+
+    public CardView getItemPostPictureLayout() {
+        return itemPostPictureLayout;
+    }
+
+    public TextView getItemPostDateTextView2() {
+        return itemPostDateTextView2;
+    }
+
+    public LinearLayout getPostSharedBodyLayout() {
+        return postSharedBodyLayout;
+    }
+
+    public TextView getItemPostDateTextView() {
+        return itemPostDateTextView;
+    }
+
+    public TextView getItemPostUsernameTextView2() {
+        return itemPostUsernameTextView2;
+    }
+
+    public ImageView getItemPostShareImageView() {
+        return itemPostShareImageView;
+    }
+
+    public TextView getItemPostUsernameTextView() {
+        return itemPostUsernameTextView;
+    }
+
+    public TextView getItemPostTitleTextView2() {
+        return itemPostTitleTextView2;
+    }
+
+    public ImageView getItemPostCommentImageView() {
+        return itemPostCommentImageView;
     }
 
     public TextView getItemPostBodyTextView() {
@@ -83,79 +169,11 @@ public class ItemPostViewHolder extends RecyclerView.ViewHolder {
         return itemPostTitleTextView;
     }
 
-    public LinearLayout getItemPostCardView() {
-        return itemPostCardView;
+    public ImageView getItemPostMoreImageView2() {
+        return itemPostMoreImageView2;
     }
 
-    public ImageView getItemPostPictureImageView() {
-        return itemPostPictureImageView;
-    }
-
-    public LinearLayout getItemPostShareLayout() {
-        return itemPostShareLayout;
-    }
-
-    public LinearLayout getItemPostCommentLayout() {
-        return itemPostCommentLayout;
-    }
-
-    public TextView getItemPostDateTextView() {
-        return itemPostDateTextView;
-    }
-
-    public TextView getItemPostSharedBodyTextView() {
-        return itemPostSharedBodyTextView;
-    }
-
-    public ImageView getItemPostSharedPictureImageView() {
-        return itemPostSharedPictureImageView;
-    }
-
-    public LinearLayout getItemPostLikeLayout() {
-        return itemPostLikeLayout;
-    }
-
-    public ImageView getItemPostUserPictureImageView() {
-        return itemPostUserPictureImageView;
-    }
-
-    public TextView getItemPostSharedTitleTextView() {
-        return itemPostSharedTitleTextView;
-    }
-
-    public ImageView getItemPostShareImageView() {
-        return itemPostShareImageView;
-    }
-
-    public CardView getItemPostSharedPictureLayout() {
-        return itemPostSharedPictureLayout;
-    }
-
-    public TextView getItemPostSharedDateTextView() {
-        return itemPostSharedDateTextView;
-    }
-
-    public LinearLayout getItemPostSharedLayout() {
-        return itemPostSharedLayout;
-    }
-
-    public CardView getItemPostPictureLayout() {
-        return itemPostPictureLayout;
-    }
-
-    public ImageView getItemPostMoreImageView() {
-        return itemPostMoreImageView;
-    }
-
-    public TextView getItemPostSharedUsernameTextView() {
-        return itemPostSharedUsernameTextView;
-    }
-
-    public ImageView getItemPostCommentImageView() {
-        return itemPostCommentImageView;
-    }
-
-    public TextView getItemPostUsernameTextView() {
-        return itemPostUsernameTextView;
+    public ImageView getItemPostUserPictureImageView2() {
+        return itemPostUserPictureImageView2;
     }
 }

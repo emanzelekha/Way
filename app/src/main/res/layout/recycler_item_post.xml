@@ -1,131 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_post_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:background="@drawable/shape_rectc_white_border_light_grey"
     android:orientation="vertical"
     android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="2"
-            card_view:cardCornerRadius="15dp">
-
-            <ImageView
-                android:id="@+id/item_post_user_picture_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_person" />
-
-                <TextView
-                    android:id="@+id/item_post_username_textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="11"
-                    android:text="David Mark"
-                    android:textColor="@color/colorPrimary" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/item_post_date_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Yesterday at 11:48 PM"
-                android:textColor="@color/colorGrey" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/item_post_more_imageView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_more" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/item_post_title_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New business on the way"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/item_post_body_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:maxLines="6"
-        android:text="Lnlzgxcfytdrxdezgxchvhtyrdxcvyjgrfsxfhcytrfch  trtdxxcrxrtxrxytctcytctycfcrxfgctctcvtudrcvbukgiyfdyrsxgfhgvhfudyrxfh hcgjhfxh hgh gbjgjctducgj hvkyfudtyxfh gvhutcgjvutyxfh gjgchxf cghfx"
-        android:textColor="@color/colorDarkGrey" />
-
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/item_post_picture_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        android:layout_weight="2"
-        android:visibility="gone"
-        card_view:cardCornerRadius="15dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_transparent_slider_image" />
-
-        <ImageView
-            android:id="@+id/item_post_picture_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
-    </android.support.v7.widget.CardView>
+    <include
+        android:id="@+id/post_body_layout"
+        layout="@layout/layout_post"/>
 
     <LinearLayout
         android:id="@+id/item_post_shared_layout"
@@ -137,116 +22,9 @@
         android:padding="10dp"
         android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
-                card_view:cardCornerRadius="15dp">
-
-                <ImageView
-                    android:id="@+id/item_post_shared_user_picture_imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher" />
-            </android.support.v7.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_person" />
-
-                    <TextView
-                        android:id="@+id/item_post_shared_username_textView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="11"
-                        android:text="David Mark"
-                        android:textColor="@color/colorPrimary" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/item_post_shared_date_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Yesterday at 11:48 PM"
-                    android:textColor="@color/colorGrey" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/item_post_shared_title_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New business on the way"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/item_post_shared_body_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:maxLines="6"
-            android:text="Lnlzgxcfytdrxdezgxchvhtyrdxcvyjgrfsxfhcytrfch  trtdxxcrxrtxrxytctcytctycfcrxfgctctcvtudrcvbukgiyfdyrsxgfhgvhfudyrxfh hcgjhfxh hgh gbjgjctducgj hvkyfudtyxfh gvhutcgjvutyxfh gjgchxf cghfx"
-            android:textColor="@color/colorDarkGrey" />
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/item_post_shared_picture_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_weight="2"
-            android:visibility="gone"
-            card_view:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/icon_transparent_slider_image" />
-
-            <ImageView
-                android:id="@+id/item_post_shared_picture_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
-        </android.support.v7.widget.CardView>
+        <include
+            android:id="@+id/post_shared_body_layout"
+            layout="@layout/layout_post"/>
 
     </LinearLayout>
 
@@ -259,7 +37,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
@@ -269,6 +49,7 @@
             android:id="@+id/item_post_like_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -303,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:gravity="center"
                 android:text="@string/label_like"
                 android:textColor="@color/colorGrey"
                 android:textStyle="bold" />
@@ -333,7 +115,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -345,6 +127,7 @@
                     android:id="@+id/item_post_comment_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_gravity="center"
                     android:layout_weight="5"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
@@ -359,6 +142,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="@string/label_comment"
@@ -425,4 +209,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

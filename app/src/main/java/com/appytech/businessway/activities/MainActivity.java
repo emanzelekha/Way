@@ -2,31 +2,27 @@ package com.appytech.businessway.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TableLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appytech.businessway.R;
-import com.appytech.businessway.adapters.RecyclerAdapter;
-import com.appytech.businessway.adapters.ViewPagerAdapter;
-import com.appytech.businessway.viewholders.ItemPostViewHolder;
+import com.appytech.businessway.fragments.CardsFragment;
+import com.appytech.businessway.fragments.HomeFragment;
+import com.appytech.businessway.fragments.MenuFragment;
+import com.appytech.businessway.fragments.NearbyFragment;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView postsRecyclerView;
-    private RecyclerAdapter postsRecyclerAdapter;
     private JSONArray postsJsonArray;
 
     @Override
@@ -34,33 +30,64 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar();
-//        initTabs();
-//        fillPostsList();
-    }
 
-    private void initTabs() {
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.main_tabLayout);
-        ViewPager viewPager=(ViewPager) findViewById(R.id.main_viewPager);
-        ViewPagerAdapter viewPagerAdapter= new ViewPagerAdapter(getSupportFragmentManager());
-//        viewPagerAdapter.addTab();
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-    }
-
-    private void fillPostsList() {
-        postsRecyclerView = (RecyclerView) findViewById(R.id.main_posts_recyclerView);
-        postsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        postsRecyclerAdapter = new RecyclerAdapter(postsJsonArray, R.layout.recycler_item_post, ItemPostViewHolder.class, new RecyclerAdapter.AdapterInterface<JSONObject, ItemPostViewHolder>() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void fillData(JSONObject dataModel, ItemPostViewHolder viewHolder, int position) {
+            public void onClick(View view) {
 
             }
         });
-        postsRecyclerView.setAdapter(postsRecyclerAdapter);
+
+        openFragment(HomeFragment.newInstance());
+        findViewById(R.id.main_home_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickHide(0);
+                openFragment(HomeFragment.newInstance());
+            }
+        });
+        findViewById(R.id.main_card_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickHide(1);
+                openFragment(CardsFragment.newInstance());
+            }
+        });
+        findViewById(R.id.main_nearby_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickHide(2);
+                openFragment(NearbyFragment.newInstance());
+            }
+        });
+        findViewById(R.id.main_more_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickHide(3);
+                openFragment(MenuFragment.newInstance());
+            }
+        });
+
     }
 
-    private void getPosts() {
+    private int[] imagesIDs={R.id.main_home_imageView, R.id.main_card_imageView, R.id.main_nearby_imageView, R.id.main_more_imageView},
+            linesIDs={R.id.main_home_line_imageView, R.id.main_card_line_imageView, R.id.main_nearby_line_imageView, R.id.main_more_line_imageView},
+            selectedImagesResources={R.drawable.icon_selected_home, R.drawable.icon_selected_card, R.drawable.icon_selected_nearby, R.drawable.ic_selected_menu},
+            imagesResources={R.drawable.icon_home, R.drawable.icon_card, R.drawable.icon_nearby, R.drawable.ic_menu};
+    private void onClickHide(int index){
+        for (int i=0; i<imagesIDs.length;i++){
+            if(i!=index){
+                ((ImageView)findViewById(imagesIDs[i])).setImageResource(imagesResources[i]);
+                ((ImageView)findViewById(linesIDs[i])).setImageResource(R.color.colorGrey);
+            }else{
+                ((ImageView)findViewById(imagesIDs[i])).setImageResource(selectedImagesResources[i]);
+                ((ImageView)findViewById(linesIDs[i])).setImageResource(R.color.colorPrimary);
+            }
+        }
+    }
+
+    private void getPostsJSONArray() {
         postsJsonArray = new JSONArray();
     }
 
@@ -96,5 +123,17 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         mToolBarTextView.setText(getString(R.string.app_name));
+    }
+
+    private Class currentFragmentClass;
+    private void openFragment(Fragment fragment){
+        if(currentFragmentClass!=fragment.getClass()) {
+            currentFragmentClass=fragment.getClass();
+            Log.e("openFragment", fragment.getClass().getName() + "");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_container_layout, fragment)
+                    .commit();
+        }
     }
 }

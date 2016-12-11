@@ -1,13 +1,20 @@
 package com.appytech.businessway.tools;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.text.Html;
 import android.text.InputType;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Patterns;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +25,8 @@ import com.appytech.businessway.tools.glideUtils.GlideCircleTransform;
 import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import static android.R.attr.id;
 
 /**
  * Created by selim on 11/30/2016.
@@ -83,8 +92,12 @@ public class ViewHelper {
         ((ImageView) getView(id)).setImageResource(image);
     }
 
-    public void setImage(int id, String url) {
+    public void setImage(int id, String url){
         ImageView imageView = (ImageView) getView(id);
+        setImage(imageView, url);
+    }
+
+    public void setImage(ImageView imageView, String url) {
         Glide.with(activity)
                 .load(url)
                 .placeholder(imageView.getDrawable())
@@ -229,19 +242,93 @@ public class ViewHelper {
         }
         return isValidPassword;
     }
-//    public String[] getValue(int... ids) {
-//        String[] values= new String[ids.length];
-//
-//        for (int i=0; i<ids.length; i++){
-//            if (ValidationManager.validateEmptyFields(activity, ids)) {
-//                if (activity != null)
-//                    values[i]= ((TextView) activity.findViewById(ids[i])).getText().toString();
-//                else if (rootView != null)
-//                    values[i]= ((TextView) rootView.findViewById(ids[i])).getText().toString();
-//            }
-//        }
-//        return values;
-//    }
+
+    public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+
+        if (tv.getTag() == null) {
+            tv.setTag(tv.getText());
+        }
+        ViewTreeObserver viewTreeObserver = tv.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+//                tv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        if(expandable) {
+//                            expandable = false;
+//                            if (tvDescription.getLineCount() > 4) {
+//                                btnSeeMore.setVisibility(View.VISIBLE);
+//                                ObjectAnimator animation = ObjectAnimator.ofInt(tvDescription, "maxLines", 4);
+//                                animation.setDuration(0).start();
+//                            }
+//                        }
+//                    }
+//                });
+                ViewTreeObserver treeObserver = tv.getViewTreeObserver();
+                treeObserver.removeGlobalOnLayoutListener(this);
+                if (maxLine == 0) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(0);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else {
+                    int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                }
+            }
+        });
+
+    }
+
+    private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                            final int maxLine, final String spannableText, final boolean viewMore) {
+        String str = strSpanned.toString();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
+
+        if (str.contains(spannableText)) {
+            ssb.setSpan(new ClickableSpan() {
+
+                @Override
+                public void onClick(View widget) {
+
+                    if (viewMore) {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, -1, "View Less", false);
+                    } else {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, 3, "View More", true);
+                    }
+
+                }
+            }, str.indexOf(spannableText), str.indexOf(spannableText) + spannableText.length(), 0);
+
+        }
+        return ssb;
+
+    }
 
 
 }
