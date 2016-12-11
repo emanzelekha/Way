@@ -202,7 +202,7 @@ public class ViewHelper {
             for(int i=0; i<5; i++){
                 if(tempParent==null)tempParent=editText.getParent();
                 else tempParent=tempParent.getParent();
-                if(tempParent!=null && tempParent instanceof TextInputLayout)hint = ((TextInputEditText)tempParent).getHint().toString();
+                if(tempParent!=null && tempParent instanceof TextInputLayout)hint = ((TextInputLayout)tempParent).getHint().toString();
             }
         }
         return hint;
