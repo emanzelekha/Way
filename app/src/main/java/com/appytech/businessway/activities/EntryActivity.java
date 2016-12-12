@@ -1,28 +1,47 @@
 package com.appytech.businessway.activities;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.TextView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.appytech.businessway.R;
 import com.appytech.businessway.models.LoginModel;
+import com.appytech.businessway.socialmedia.FacebookLoginManager;
+import com.appytech.businessway.socialmedia.GooglePlusLoginManager;
+import com.appytech.businessway.socialmedia.TwitterLoginManager;
 import com.appytech.businessway.tools.APIManager;
 import com.appytech.businessway.tools.AnimationManager;
+import com.appytech.businessway.tools.AppDataManager;
+import com.appytech.businessway.tools.DialogManager;
 import com.appytech.businessway.tools.JSONHelper;
 import com.appytech.businessway.tools.LogManager;
 import com.appytech.businessway.tools.ViewHelper;
 
+import com.crashlytics.android.Crashlytics;
+import com.facebook.Profile;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.models.User;
+
+import io.fabric.sdk.android.Fabric;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class SplashActivity extends AppCompatActivity {
+public class EntryActivity extends AppCompatActivity {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+
 
     private static final int SPLASH_TIME = 2000;
 
@@ -35,26 +54,26 @@ public class SplashActivity extends AppCompatActivity {
     private int mode, registerFrom;
     private ViewHelper viewHelper;
 
+    private FacebookLoginManager facebookLoginManager;
+    private TwitterLoginManager twitterLoginManager;
+    private GooglePlusLoginManager googlePlusLoginManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
 
-        mainLayout = findViewById(R.id.activity_splash);
+        facebookLoginManager=new FacebookLoginManager(this).init();
+        twitterLoginManager=new TwitterLoginManager(this).init();
+        googlePlusLoginManager=new GooglePlusLoginManager(this);
+
+        setContentView(R.layout.activity_entry);
+
+        setupSocialMediaLogin();
+
+        mainLayout = findViewById(R.id.splash_main_layout);
         viewHelper = new ViewHelper(this);
 
         showSplash();
-
-        new CountDownTimer(SPLASH_TIME, SPLASH_TIME) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                showLoginEntry();
-            }
-        }.start();
 
         findViewById(R.id.login_entry_login_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +83,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        addRegisterButtonsListener();
-
         findViewById(R.id.login_login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,23 +91,63 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.login_reset_password_textView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EntryActivity.this, ForgetPasswordActivity.class));
+            }
+        });
+
+        findViewById(R.id.register_register_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(viewHelper.validate(R.id.register_first_name_editText, R.id.register_last_name_editText, R.id.register_email_editText, R.id.register_password_editText, R.id.register_confirm_password_editText)){
+                    if(((RadioButton)findViewById(R.id.register_accept_terms_radioButton)).isChecked()){
+                        Intent intent=new Intent(EntryActivity.this, CompleteProfileActivity.class);
+                        intent.putExtra(APIManager.TAG_FIRST_NAME, viewHelper.getValue(R.id.register_first_name_editText));
+                        intent.putExtra(APIManager.TAG_LAST_NAME, viewHelper.getValue(R.id.register_last_name_editText));
+                        intent.putExtra(APIManager.TAG_EMAIL, viewHelper.getValue(R.id.register_email_editText));
+                        intent.putExtra(APIManager.TAG_PASSWORD, viewHelper.getValue(R.id.register_password_editText));
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        DialogManager.showDialog(EntryActivity.this, getString(R.string.msg_should_accept_terms));
+                    }
+                }
+            }
+        });
+
+        findViewById(R.id.register_terms_and_conditions_textView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EntryActivity.this, CompleteProfileActivity.class));
+            }
+        });
     }
 
 
     private void login(String identity, String password) {
         APIManager.login(this, identity, password, new APIManager.ResponseListener<LoginModel>() {
-
             @Override
             public void done(LoginModel dataModel) {
-                LogManager.e(dataModel);
+                AppDataManager.saveUserData(EntryActivity.this, dataModel.getData().getIdentity());
+                startActivity(new Intent(EntryActivity.this, MainActivity.class));
+                finish();
             }
-
             @Override
             public void failed(boolean fromConnection, int statusCode, String errorBody) {
                 if (!fromConnection) {
                     //if(statusCode==400){
                     JSONObject errorJsonObject = JSONHelper.getJsonObject(errorBody);
-                    LogManager.e(errorJsonObject.toString());
+                    LogManager.e("failed:"+errorJsonObject);
+                    JSONArray errorMsgsJsonArray=JSONHelper.getJSONArrayFromJSONObject(errorJsonObject, APIManager.TAG_DATA);
+                    String errorMsg="";
+                    for(int i=0; i<errorMsgsJsonArray.length(); i++){
+                        if(errorMsg.length()>0)errorBody+="\n";
+                        errorMsg+=JSONHelper.getStringFromJSONArray(errorMsgsJsonArray, i);
+                    }
+                    if(errorMsg.length()>0)DialogManager.showDialog(EntryActivity.this, errorMsg);
 //                }
                 }
             }
@@ -136,6 +193,14 @@ public class SplashActivity extends AppCompatActivity {
                         AnimationManager.fadeIn(findViewById(R.id.splash_logo_imageView), fadeIn);
                     }
                 });
+        new CountDownTimer(SPLASH_TIME, SPLASH_TIME) {
+            @Override
+            public void onTick(long millisUntilFinished) {}
+            @Override
+            public void onFinish() {
+                showLoginEntry();
+            }
+        }.start();
     }
 
     private void showLoginEntry() {
@@ -146,6 +211,7 @@ public class SplashActivity extends AppCompatActivity {
 
         AnimationManager.slideFromDown(findViewById(R.id.login_entry_bottom1_layout), entryDuration, 0);
         AnimationManager.slideFromDownWithDistance(findViewById(R.id.login_entry_bottom2_layout), findViewById(R.id.login_entry_bottom1_layout).getHeight(), entryDuration, 0);
+        addRegisterButtonsListener();
     }
 
     private void showLogin() {
@@ -255,5 +321,59 @@ public class SplashActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else return super.onOptionsItemSelected(item);
+    }
+
+    //Social Media Login
+    private void setupSocialMediaLogin() {
+        facebookLoginManager.setCustomButton(findViewById(R.id.login_facebook_imageView));
+        facebookLoginManager.setup(findViewById(R.id.login_facebook_button), new FacebookLoginManager.FacebookResponseListener() {
+            @Override
+            public void onSuccess(String token, String name, String photoURL, Profile userProfile) {
+                Log.e("Name", ""+name);
+                Toast.makeText(EntryActivity.this, "Welcome "+name, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(EntryActivity.this, MainActivity.class));
+                finish();
+            }
+            @Override
+            public void onFailed() {
+
+            }
+        });
+        twitterLoginManager.setCustomButton(findViewById(R.id.login_twitter_imageView));
+        twitterLoginManager.setup(findViewById(R.id.twitter_login_button), new TwitterLoginManager.TwitterResponseListener() {
+            @Override
+            public void onSuccess(String token, String name, String photoURL, User user) {
+                Log.e("Name", ""+name);
+                Toast.makeText(EntryActivity.this, "Welcome "+name, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(EntryActivity.this, MainActivity.class));
+                finish();
+            }
+            @Override
+            public void onFailed() {
+
+            }
+        });
+        googlePlusLoginManager.setCustomButton(findViewById(R.id.login_google_imageView));
+        googlePlusLoginManager.setup(findViewById(R.id.login_google_button), new GooglePlusLoginManager.GoogleResponseListener() {
+            @Override
+            public void onSuccess(String token, String name, String photoURL, GoogleSignInAccount userProfile) {
+                Log.e("Name", ""+name);
+                Toast.makeText(EntryActivity.this, "Welcome "+name, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(EntryActivity.this, MainActivity.class));
+                finish();
+            }
+            @Override
+            public void onFailed() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        facebookLoginManager.onActivityResult(requestCode, resultCode, data);
+        twitterLoginManager.onActivityResult(requestCode, resultCode, data);
+        googlePlusLoginManager.onActivityResult(requestCode, resultCode, data);
     }
 }

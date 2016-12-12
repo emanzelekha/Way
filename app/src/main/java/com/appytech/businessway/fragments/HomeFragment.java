@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.appytech.businessway.R;
 import com.appytech.businessway.adapters.RecyclerAdapter;
 import com.appytech.businessway.tools.DialogManager;
-import com.appytech.businessway.tools.JsonHelper;
+import com.appytech.businessway.tools.JSONHelper;
 import com.appytech.businessway.tools.LogManager;
 import com.appytech.businessway.viewholders.ItemPostViewHolder;
 
@@ -139,34 +139,34 @@ public class HomeFragment extends Fragment {
             @Override
             public void fillData(JSONObject dataJsonObject, ItemPostViewHolder viewHolder, int position) {
                 viewHolder.getItemPostMoreImageView2().setVisibility(View.INVISIBLE);
-                if (JsonHelper.getIntFromJSONObject(dataJsonObject, share) == 1) {
+                if (JSONHelper.getIntFromJSONObject(dataJsonObject, share) == 1) {
                     LogManager.e("SHaRE", dataJsonObject.toString());
                     viewHolder.getItemPostSharedLayout().setVisibility(View.VISIBLE);
-                    viewHolder.getItemPostUsernameTextView2().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, sharedUsername));
-                    viewHolder.getItemPostTitleTextView2().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, sharedTitle));
-                    viewHolder.getItemPostDateTextView2().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, sharedDate));
-                    viewHolder.getItemPostBodyTextView2().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, sharedBody));
-//                    new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostSharedUserPictureImageView(), JsonHelper.getStringFromJSONObject(dataJsonObject, sharedUserPic));
+                    viewHolder.getItemPostUsernameTextView2().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, sharedUsername));
+                    viewHolder.getItemPostTitleTextView2().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, sharedTitle));
+                    viewHolder.getItemPostDateTextView2().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, sharedDate));
+                    viewHolder.getItemPostBodyTextView2().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, sharedBody));
+//                    new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostSharedUserPictureImageView(), JSONHelper.getStringFromJSONObject(dataJsonObject, sharedUserPic));
                     viewHolder.getItemPostUserPictureImageView2().setImageResource(R.drawable.user_pic);
                 }
                 if (dataJsonObject.has(pic)) {
                     viewHolder.getItemPostPictureLayout().setVisibility(View.VISIBLE);
                     viewHolder.getItemPostPictureImageView().setImageResource(R.drawable.pic);
-//                    new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostPictureImageView(), JsonHelper.getStringFromJSONObject(dataJsonObject, pic));
+//                    new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostPictureImageView(), JSONHelper.getStringFromJSONObject(dataJsonObject, pic));
                 }
                 if (dataJsonObject.has(sharedPIC)) {
                     viewHolder.getItemPostPictureLayout2().setVisibility(View.VISIBLE);
                     viewHolder.getItemPostPictureImageView2().setImageResource(R.drawable.pic);
                 }
-                if (JsonHelper.getStringFromJSONObject(dataJsonObject, title).length() != 0 && JsonHelper.getStringFromJSONObject(dataJsonObject, body).length() != 0) {
-                    viewHolder.getItemPostTitleTextView().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, title));
-                    viewHolder.getItemPostBodyTextView().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, body));
+                if (JSONHelper.getStringFromJSONObject(dataJsonObject, title).length() != 0 && JSONHelper.getStringFromJSONObject(dataJsonObject, body).length() != 0) {
+                    viewHolder.getItemPostTitleTextView().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, title));
+                    viewHolder.getItemPostBodyTextView().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, body));
 //                    ViewHelper.makeTextViewResizable(viewHolder.getItemPostBodyTextView(),4,"View more",true);
                 }
-                viewHolder.getItemPostUsernameTextView().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, username));
-                viewHolder.getItemPostDateTextView().setText(JsonHelper.getStringFromJSONObject(dataJsonObject, date));
+                viewHolder.getItemPostUsernameTextView().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, username));
+                viewHolder.getItemPostDateTextView().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, date));
                 viewHolder.getItemPostUserPictureImageView().setImageResource(R.drawable.user);
-//                new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostUserPictureImageView(), JsonHelper.getStringFromJSONObject(dataJsonObject, userPic));
+//                new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostUserPictureImageView(), JSONHelper.getStringFromJSONObject(dataJsonObject, userPic));
             }
         });
         postsRecyclerView.setAdapter(postsRecyclerAdapter);

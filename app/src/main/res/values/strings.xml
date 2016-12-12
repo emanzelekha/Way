@@ -30,11 +30,23 @@
     <string name="msg_please_enter">Please enter</string>
     <string name="msg_enter_valid_email">Please, enter valid email</string>
     <string name="msg_enter_valid_phone">Please, enter valid phone</string>
-    <string name="msg_enter_valid_password">Password do not match</string>
+    <string name="msg_enter_valid_password">Passwords do not match</string>
     <string name="label_complete_profile">Complete Profile</string>
     <string name="label_finish">Finish</string>
-    <string name="lable_all_news">All news</string>
-    <string name="lable_recents">Recents</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="label_forgot_your_password">Forgot your password?</string>
+    <string name="msg_forgot_password">We can help you reset your password.\nFirst, Enter your email address</string>
+    <string name="label_send">Send</string>
+    <string name="msg_should_accept_terms">Please, accept terms and conditions</string>
+    <string name="lable_all_news">All News</string>
+    <string name="lable_recents">Recent</string>
+    <string name="label_position">Position</string>
+    <string name="label_male">Male</string>
+    <string name="label_female">Female</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_country">Country</string>
+    <string name="label_city">City</string>
+    <string name="label_district">District</string>
+    <string name="label_change_image">Change image</string>
+    <string name="label_crop">Crop</string>
 
 </resources>

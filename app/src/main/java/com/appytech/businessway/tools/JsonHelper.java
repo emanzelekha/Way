@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by eng_m on 5/8/2016.
  */
-public class JsonHelper {
+public class JSONHelper {
 
     public static JSONArray sortIntJSONArray(JSONArray jsonArray){
         return sortIntJSONArray(jsonArray, false);
@@ -84,18 +84,23 @@ public class JsonHelper {
         }
     }
 
-    public static String getStringFromJSONObject(Context context, JSONObject jsonObject, String key){
-        try {
-            boolean isArabic=false;
-            try{isArabic=LanguageManager.isArabic(context);}catch(Exception e){}
-            String value;
-            if(isArabic && jsonObject.has(key+"_ar"))value=jsonObject.getString(key+"_ar");
-            else value=jsonObject.getString(key);
-            return value;
-        } catch (JSONException e) {
-            LogManager.e("getStringFromJSONObject",e.toString());
-            return "";
-        }
+//    public static String getStringFromJSONObject(Context context, JSONObject jsonObject, String key){
+//        try {
+//            boolean isArabic=false;
+//            try{isArabic=LanguageManager.isArabic(context);}catch(Exception e){}
+//            String value;
+//            if(isArabic && jsonObject.has(key+"_ar"))value=jsonObject.getString(key+"_ar");
+//            else value=jsonObject.getString(key);
+//            return value;
+//        } catch (JSONException e) {
+//            LogManager.e("getStringFromJSONObject",e.toString());
+//            return "";
+//        }
+//    }
+
+    public static String getStringFromNestedJSONObject(JSONObject jsonObject, String... keys){
+        for (int i=0; i<keys.length-1; i++)jsonObject=getJSONObjectFromJSONObject(jsonObject, keys[i]);
+        return getStringFromJSONObject(jsonObject, keys[keys.length-1]);
     }
 
     public static String getStringFromJSONObject(JSONObject jsonObject, String key){

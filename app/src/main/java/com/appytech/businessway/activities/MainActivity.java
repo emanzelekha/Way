@@ -31,14 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         openFragment(HomeFragment.newInstance());
         findViewById(R.id.main_home_layout).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,16 +10,17 @@ import com.google.gson.Gson;
  */
 public class LogManager {
     private static final String TAG="BusinessWay";
+    private static final boolean DEBUG=true;
 
     public static void e(String tag, String msg){
-        if(BuildConfig.DEBUG)Log.e(tag, msg);
+        if(DEBUG)Log.e(tag, msg);
     }
 
     public static void e(String msg){
-        if(BuildConfig.DEBUG)Log.e(TAG, msg);
+        if(DEBUG)Log.e(TAG, msg);
     }
 
     public static void e(Object object){
-        if(BuildConfig.DEBUG)Log.e(TAG, new Gson().toJson(object));
+        if(DEBUG)Log.e(TAG, new Gson().toJson(object));
     }
 }
