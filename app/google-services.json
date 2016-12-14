@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "152962564371",
+    "firebase_url": "https://businessway-151918.firebaseio.com",
+    "project_id": "businessway-151918",
+    "storage_bucket": "businessway-151918.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152962564371:android:822ca8220f2cfba7",
+        "android_client_info": {
+          "package_name": "com.appytech.businessway"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152962564371-4kbp5ug1eb6gsi3p2qui40a8uqeaiqb1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appytech.businessway",
+            "certificate_hash": "E895C49FD65F8BF4792C021DE8167ABE075F7CCB"
+          }
+        },
+        {
+          "client_id": "152962564371-g3s4rraefeutmvbpmn5igv0jjf4uhgiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0xTIQm8fupFicM49ktdSLTyDQHh-MEPc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152962564371-g3s4rraefeutmvbpmn5igv0jjf4uhgiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
