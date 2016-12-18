@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.appytech.businessway.R;
 import com.appytech.businessway.models.LoginModel;
+import com.appytech.businessway.models.RegisterUserModel;
 import com.appytech.businessway.socialmedia.FacebookLoginManager;
 import com.appytech.businessway.socialmedia.GooglePlusLoginManager;
 import com.appytech.businessway.socialmedia.TwitterLoginManager;
 import com.appytech.businessway.tools.APIManager;
+import com.appytech.businessway.tools.APIManagerExtra;
 import com.appytech.businessway.tools.AnimationManager;
 import com.appytech.businessway.tools.AppDataManager;
 import com.appytech.businessway.tools.DialogManager;
@@ -104,13 +106,17 @@ public class EntryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(viewHelper.validate(R.id.register_first_name_editText, R.id.register_last_name_editText, R.id.register_email_editText, R.id.register_password_editText, R.id.register_confirm_password_editText)){
                     if(((RadioButton)findViewById(R.id.register_accept_terms_radioButton)).isChecked()){
-                        Intent intent=new Intent(EntryActivity.this, CompleteProfileActivity.class);
-                        intent.putExtra(APIManager.TAG_FIRST_NAME, viewHelper.getValue(R.id.register_first_name_editText));
-                        intent.putExtra(APIManager.TAG_LAST_NAME, viewHelper.getValue(R.id.register_last_name_editText));
-                        intent.putExtra(APIManager.TAG_EMAIL, viewHelper.getValue(R.id.register_email_editText));
-                        intent.putExtra(APIManager.TAG_PASSWORD, viewHelper.getValue(R.id.register_password_editText));
-                        startActivity(intent);
-                        finish();
+                        registerUser(viewHelper.getValue(R.id.register_first_name_editText),
+                                viewHelper.getValue(R.id.register_last_name_editText),
+                                viewHelper.getValue(R.id.register_email_editText),
+                                viewHelper.getValue(R.id.register_password_editText));
+//                        Intent intent=new Intent(EntryActivity.this, CompleteProfileActivity.class);
+//                        intent.putExtra(APIManager.TAG_FIRST_NAME, viewHelper.getValue(R.id.register_first_name_editText));
+//                        intent.putExtra(APIManager.TAG_LAST_NAME, viewHelper.getValue(R.id.register_last_name_editText));
+//                        intent.putExtra(APIManager.TAG_EMAIL, viewHelper.getValue(R.id.register_email_editText));
+//                        intent.putExtra(APIManager.TAG_PASSWORD, viewHelper.getValue(R.id.register_password_editText));
+//                        startActivity(intent);
+//                        finish();
                     }else{
                         DialogManager.showDialog(EntryActivity.this, getString(R.string.msg_should_accept_terms));
                     }
@@ -118,17 +124,17 @@ public class EntryActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.register_terms_and_conditions_textView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EntryActivity.this, CompleteProfileActivity.class));
-            }
-        });
+//        findViewById(R.id.register_terms_and_conditions_textView).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(EntryActivity.this, CompleteProfileActivity.class));
+//            }
+//        });
     }
 
 
     private void login(String identity, String password) {
-        APIManager.login(this, identity, password, new APIManager.ResponseListener<LoginModel>() {
+        APIManager.login(this, identity, password, true, new APIManager.ResponseListener<LoginModel>() {
             @Override
             public void done(LoginModel dataModel) {
                 AppDataManager.saveUserData(EntryActivity.this, dataModel.getData().getIdentity());
@@ -139,21 +145,35 @@ public class EntryActivity extends AppCompatActivity {
             public void failed(boolean fromConnection, int statusCode, String errorBody) {
                 if (!fromConnection) {
                     //if(statusCode==400){
-                    JSONObject errorJsonObject = JSONHelper.getJsonObject(errorBody);
-                    LogManager.e("failed:"+errorJsonObject);
-                    JSONArray errorMsgsJsonArray=JSONHelper.getJSONArrayFromJSONObject(errorJsonObject, APIManager.TAG_DATA);
-                    String errorMsg="";
-                    for(int i=0; i<errorMsgsJsonArray.length(); i++){
-                        if(errorMsg.length()>0)errorBody+="\n";
-                        errorMsg+=JSONHelper.getStringFromJSONArray(errorMsgsJsonArray, i);
-                    }
-                    if(errorMsg.length()>0)DialogManager.showDialog(EntryActivity.this, errorMsg);
+                    APIManagerExtra.handelErrorBody(EntryActivity.this, errorBody);
 //                }
                 }
             }
         });
     }
 
+    private void registerUser(String firstName, String lastName, String email, String password){
+        APIManager.registerUser(this, firstName, lastName, email, password, true, new APIManager.ResponseListener<RegisterUserModel>() {
+
+            @Override
+            public void done(RegisterUserModel dataModel) {
+                AppDataManager.saveUserData(EntryActivity.this, dataModel.getData().getIdentity());
+                startActivity(new Intent(EntryActivity.this, CompleteProfileActivity.class));
+                finish();
+            }
+            @Override
+            public void failed(boolean fromConnection, int statusCode, String errorBody) {
+                if(!fromConnection){
+                    APIManagerExtra.handelErrorBody(EntryActivity.this, errorBody);
+                //if(statusCode==400){
+                //try {
+                //JSONObject errorJsonObject=new JSONObject(errorBody);
+                //} catch (JSONException e) {}
+                //}
+                }
+            }
+        });
+    }
 
     private void addRegisterButtonsListener() {
         findViewById(R.id.login_entry_register_button).setOnClickListener(new View.OnClickListener() {

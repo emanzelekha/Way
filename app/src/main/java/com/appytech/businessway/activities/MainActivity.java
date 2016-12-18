@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             linesIDs={R.id.main_home_line_imageView, R.id.main_card_line_imageView, R.id.main_nearby_line_imageView, R.id.main_more_line_imageView},
             selectedImagesResources={R.drawable.icon_selected_home, R.drawable.icon_selected_card, R.drawable.icon_selected_nearby, R.drawable.ic_selected_menu},
             imagesResources={R.drawable.icon_home, R.drawable.icon_card, R.drawable.icon_nearby, R.drawable.ic_menu};
+
     private void onClickHide(int index){
         for (int i=0; i<imagesIDs.length;i++){
             if(i!=index){

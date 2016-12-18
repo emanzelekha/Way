@@ -2,8 +2,8 @@ package com.appytech.businessway.tools;
 
 public class MethodsUsage{
 /*
-    private void listDistrict(Context context, int cityId){
-        APIManager.listDistrict(context, cityId, new APIManager.ResponseListener<ListDistrictModel>() {
+    private void listDistrict(int cityId){
+        APIManager.listDistrict(this, cityId, true, new APIManager.ResponseListener<ListDistrictModel>() {
 
         @Override
             public void done(ListDistrictModel dataModel) {
@@ -23,8 +23,8 @@ public class MethodsUsage{
         });
     }
 
-    private void listLanguage(Context context){
-        APIManager.listLanguage(context, , new APIManager.ResponseListener<ListLanguageModel>() {
+    private void listLanguage(){
+        APIManager.listLanguage(this, true, new APIManager.ResponseListener<ListLanguageModel>() {
 
         @Override
             public void done(ListLanguageModel dataModel) {
@@ -44,8 +44,8 @@ public class MethodsUsage{
         });
     }
 
-    private void createIndividualCard(Context context, int createdBy, String firstName, String lastName, String companyName, String address, String email, String website, int mobile, int landPhone, int fax, String position, int templateId, String color, int fieldId, int industryId, int specialtyId, int accessible, int type){
-        APIManager.createIndividualCard(context, createdBy, firstName, lastName, companyName, address, email, website, mobile, landPhone, fax, position, templateId, color, fieldId, industryId, specialtyId, accessible, type, new APIManager.ResponseListener<CreateIndividualCardModel>() {
+    private void createIndividualCard(int createdBy, String firstName, String lastName, String companyName, String address, String email, String website, int mobile, int landPhone, int fax, String position, int templateId, String color, int fieldId, int industryId, int specialtyId, int accessible, int type){
+        APIManager.createIndividualCard(this, createdBy, firstName, lastName, companyName, address, email, website, mobile, landPhone, fax, position, templateId, color, fieldId, industryId, specialtyId, accessible, type, true, new APIManager.ResponseListener<CreateIndividualCardModel>() {
 
         @Override
             public void done(CreateIndividualCardModel dataModel) {
@@ -65,8 +65,8 @@ public class MethodsUsage{
         });
     }
 
-    private void listCountry(Context context){
-        APIManager.listCountry(context, , new APIManager.ResponseListener<ListCountryModel>() {
+    private void listCountry(){
+        APIManager.listCountry(this, true, new APIManager.ResponseListener<ListCountryModel>() {
 
         @Override
             public void done(ListCountryModel dataModel) {
@@ -86,8 +86,8 @@ public class MethodsUsage{
         });
     }
 
-    private void listIndustry(Context context){
-        APIManager.listIndustry(context, , new APIManager.ResponseListener<ListIndustryModel>() {
+    private void listIndustry(){
+        APIManager.listIndustry(this, true, new APIManager.ResponseListener<ListIndustryModel>() {
 
         @Override
             public void done(ListIndustryModel dataModel) {
@@ -107,8 +107,8 @@ public class MethodsUsage{
         });
     }
 
-    private void register(Context context, String username, String firstName, String lastName, String email, String birthDate, int password, int gender, String companyName, int languageId, int countryId, int cityId, int districtId, String address, int industryId, int fieldId, int specialtyId, String job, String bio){
-        APIManager.register(context, username, firstName, lastName, email, birthDate, password, gender, companyName, languageId, countryId, cityId, districtId, address, industryId, fieldId, specialtyId, job, bio, new APIManager.ResponseListener<RegisterModel>() {
+    private void register(String username, String firstName, String lastName, String email, String birthDate, int password, int gender, String companyName, int languageId, int countryId, int cityId, int districtId, String address, int industryId, int fieldId, int specialtyId, String job, String bio){
+        APIManager.register(this, username, firstName, lastName, email, birthDate, password, gender, companyName, languageId, countryId, cityId, districtId, address, industryId, fieldId, specialtyId, job, bio, true, new APIManager.ResponseListener<RegisterModel>() {
 
         @Override
             public void done(RegisterModel dataModel) {
@@ -128,8 +128,8 @@ public class MethodsUsage{
         });
     }
 
-    private void login(Context context, String identity, String password){
-        APIManager.login(context, identity, password, new APIManager.ResponseListener<LoginModel>() {
+    private void login(String identity, String password){
+        APIManager.login(this, identity, password, true, new APIManager.ResponseListener<LoginModel>() {
 
         @Override
             public void done(LoginModel dataModel) {
@@ -149,8 +149,29 @@ public class MethodsUsage{
         });
     }
 
-    private void listField(Context context, int fieldId){
-        APIManager.listField(context, fieldId, new APIManager.ResponseListener<ListFieldModel>() {
+    private void registerUser(String firstName, String lastName, String email, int password){
+        APIManager.registerUser(this, firstName, lastName, email, password, true, new APIManager.ResponseListener<RegisterUserModel>() {
+
+        @Override
+            public void done(RegisterUserModel dataModel) {
+                
+
+            }
+            @Override
+            public void failed(boolean fromConnection, int statusCode, String errorBody) {
+                //if(!fromConnection){
+                    //if(statusCode==400){
+                        //try {
+                            //JSONObject errorJsonObject=new JSONObject(errorBody);
+                        //} catch (JSONException e) {}
+                    //}
+                //}
+            }
+        });
+    }
+
+    private void listField(int fieldId){
+        APIManager.listField(this, fieldId, true, new APIManager.ResponseListener<ListFieldModel>() {
 
         @Override
             public void done(ListFieldModel dataModel) {
@@ -170,8 +191,8 @@ public class MethodsUsage{
         });
     }
 
-    private void update(Context context, int cardId, int createdBy){
-        APIManager.update(context, cardId, createdBy, new APIManager.ResponseListener<UpdateModel>() {
+    private void update(int cardId, int createdBy){
+        APIManager.update(this, cardId, createdBy, true, new APIManager.ResponseListener<UpdateModel>() {
 
         @Override
             public void done(UpdateModel dataModel) {
@@ -191,11 +212,32 @@ public class MethodsUsage{
         });
     }
 
-    private void listCity(Context context, int countryId){
-        APIManager.listCity(context, countryId, new APIManager.ResponseListener<ListCityModel>() {
+    private void listCity(int countryId){
+        APIManager.listCity(this, countryId, true, new APIManager.ResponseListener<ListCityModel>() {
 
         @Override
             public void done(ListCityModel dataModel) {
+                
+
+            }
+            @Override
+            public void failed(boolean fromConnection, int statusCode, String errorBody) {
+                //if(!fromConnection){
+                    //if(statusCode==400){
+                        //try {
+                            //JSONObject errorJsonObject=new JSONObject(errorBody);
+                        //} catch (JSONException e) {}
+                    //}
+                //}
+            }
+        });
+    }
+
+    private void passwordReset(String email){
+        APIManager.passwordReset(this, email, true, new APIManager.ResponseListener<PasswordResetModel>() {
+
+        @Override
+            public void done(PasswordResetModel dataModel) {
                 
 
             }

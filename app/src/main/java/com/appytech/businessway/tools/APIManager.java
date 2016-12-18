@@ -8,9 +8,11 @@ import com.appytech.businessway.models.ListCountryModel;
 import com.appytech.businessway.models.ListIndustryModel;
 import com.appytech.businessway.models.RegisterModel;
 import com.appytech.businessway.models.LoginModel;
+import com.appytech.businessway.models.RegisterUserModel;
 import com.appytech.businessway.models.ListFieldModel;
 import com.appytech.businessway.models.UpdateModel;
 import com.appytech.businessway.models.ListCityModel;
+import com.appytech.businessway.models.PasswordResetModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,6 +30,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.DELETE;
+import retrofit2.http.Part;
+import retrofit2.http.Multipart;
 
 public class APIManager{
 
@@ -42,9 +47,11 @@ public class APIManager{
     public static final String URL_LIST_INDUSTRY="frontend/web/api/v1/settings/list-industry";
     public static final String URL_REGISTER="frontend/web/api/v1/user/register";
     public static final String URL_LOGIN="frontend/web/api/v1/user/login";
+    public static final String URL_REGISTER_USER="frontend/web/api/v1/user/register";
     public static final String URL_LIST_FIELD="frontend/web/api/v1/settings/list-speciality";
     public static final String URL_UPDATE="cards/update";
     public static final String URL_LIST_CITY="frontend/web/api/v1/settings/list-city";
+    public static final String URL_PASSWORD_RESET="frontend/web/api/v1/user/request-password-reset";
 
     public static final String TAG_CITY_ID ="city_id";
     public static final String TAG_DATA ="data";
@@ -129,6 +136,10 @@ public class APIManager{
         @POST(URL_LOGIN)
         Call<LoginModel> login(@Field(TAG_IDENTITY) String identity, @Field(TAG_PASSWORD) String password);
 
+        @FormUrlEncoded
+        @POST(URL_REGISTER_USER)
+        Call<RegisterUserModel> registerUser(@Field(TAG_FIRST_NAME) String firstName, @Field(TAG_LAST_NAME) String lastName, @Field(TAG_EMAIL) String email, @Field(TAG_PASSWORD) String password);
+
         @GET(URL_LIST_FIELD)
         Call<ListFieldModel> listField(@Query(TAG_FIELD_ID) int fieldId);
 
@@ -139,65 +150,69 @@ public class APIManager{
         @GET(URL_LIST_CITY)
         Call<ListCityModel> listCity(@Query(TAG_COUNTRY_ID) int countryId);
 
+        @FormUrlEncoded
+        @POST(URL_PASSWORD_RESET)
+        Call<PasswordResetModel> passwordReset(@Field(TAG_EMAIL) String email);
+
     }
 
-    public static void listDistrict(Context context, int cityId, ResponseListener responseListener) {
+    public static void listDistrict(Context context, int cityId, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listDistrict(cityId);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void listLanguage(Context context, ResponseListener responseListener) {
+    public static void listLanguage(Context context, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listLanguage();
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void createIndividualCard(Context context, int createdBy, String firstName, String lastName, String companyName, String address, String email, String website, int mobile, int landPhone, int fax, String position, int templateId, String color, int fieldId, int industryId, int specialtyId, int accessible, int type, ResponseListener responseListener) {
+    public static void createIndividualCard(Context context, int createdBy, String firstName, String lastName, String companyName, String address, String email, String website, int mobile, int landPhone, int fax, String position, int templateId, String color, int fieldId, int industryId, int specialtyId, int accessible, int type, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).createIndividualCard(getAuthorization(context), createdBy, firstName, lastName, companyName, address, email, website, mobile, landPhone, fax, position, templateId, color, fieldId, industryId, specialtyId, accessible, type);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void listCountry(Context context, ResponseListener responseListener) {
+    public static void listCountry(Context context, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listCountry();
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void listIndustry(Context context, ResponseListener responseListener) {
+    public static void listIndustry(Context context, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listIndustry();
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void register(Context context, String username, String firstName, String lastName, String email, String birthDate, int password, int gender, String companyName, int languageId, int countryId, int cityId, int districtId, String address, int industryId, int fieldId, int specialtyId, String job, String bio, ResponseListener responseListener) {
+    public static void register(Context context, String username, String firstName, String lastName, String email, String birthDate, int password, int gender, String companyName, int languageId, int countryId, int cityId, int districtId, String address, int industryId, int fieldId, int specialtyId, String job, String bio, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).register(username, firstName, lastName, email, birthDate, password, gender, companyName, languageId, countryId, cityId, districtId, address, industryId, fieldId, specialtyId, job, bio);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void login(Context context, String identity, String password, ResponseListener responseListener) {
+    public static void login(Context context, String identity, String password, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).login(identity, password);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void listField(Context context, int fieldId, ResponseListener responseListener) {
+    public static void registerUser(Context context, String firstName, String lastName, String email, String password, boolean showLoadingDialog, ResponseListener responseListener) {
+        Call call=RetrofitManager.getAPIBuilder(URL_BASE).registerUser(firstName, lastName, email, password);
+        performNormalRequest(context, call, showLoadingDialog, responseListener);
+    }
+
+    public static void listField(Context context, int fieldId, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listField(fieldId);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void update(Context context, int cardId, int createdBy, ResponseListener responseListener) {
+    public static void update(Context context, int cardId, int createdBy, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).update(getAuthorization(context), cardId, createdBy);
-        boolean showLoadingDialog=true;
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
-    public static void listCity(Context context, int countryId, ResponseListener responseListener) {
+    public static void listCity(Context context, int countryId, boolean showLoadingDialog, ResponseListener responseListener) {
         Call call=RetrofitManager.getAPIBuilder(URL_BASE).listCity(countryId);
-        boolean showLoadingDialog=true;
+        performNormalRequest(context, call, showLoadingDialog, responseListener);
+    }
+
+    public static void passwordReset(Context context, String email, boolean showLoadingDialog, ResponseListener responseListener) {
+        Call call=RetrofitManager.getAPIBuilder(URL_BASE).passwordReset(email);
         performNormalRequest(context, call, showLoadingDialog, responseListener);
     }
 
@@ -227,7 +242,7 @@ public class APIManager{
 
     private static void performNormalRequest(final Context context, final Call call, final boolean showLoading, final ResponseListener responseListener){
         Log.e("URL", call.request().url().toString());
-        if(call.request().body()!=null)Log.e("onSuccess", new Gson().toJson(call.request().body()));
+        if(call.request().body()!=null)Log.e("Parameters", new Gson().toJson(call.request().body()));
 
         ProgressDialog progressDialog = null;
         if(showLoading){

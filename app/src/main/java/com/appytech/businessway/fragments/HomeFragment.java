@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
     private void fillPostsList() {
         postsRecyclerAdapter = new RecyclerAdapter(postsJsonArray, R.layout.recycler_item_post, ItemPostViewHolder.class, new RecyclerAdapter.AdapterInterface<JSONObject, ItemPostViewHolder>() {
             @Override
-            public void fillData(JSONObject dataJsonObject, ItemPostViewHolder viewHolder, int position) {
+            public void fillData(JSONObject dataJsonObject, final ItemPostViewHolder viewHolder, int position) {
                 viewHolder.getItemPostMoreImageView2().setVisibility(View.INVISIBLE);
                 if (JSONHelper.getIntFromJSONObject(dataJsonObject, share) == 1) {
                     LogManager.e("SHaRE", dataJsonObject.toString());
@@ -167,6 +167,27 @@ public class HomeFragment extends Fragment {
                 viewHolder.getItemPostDateTextView().setText(JSONHelper.getStringFromJSONObject(dataJsonObject, date));
                 viewHolder.getItemPostUserPictureImageView().setImageResource(R.drawable.user);
 //                new ViewHelper(MainActivity.this).setImage(viewHolder.getItemPostUserPictureImageView(), JSONHelper.getStringFromJSONObject(dataJsonObject, userPic));
+                viewHolder.getItemPostCommentLayout().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DialogManager.showToast(getActivity(), "Comment is pressed");
+                    }
+                });
+                viewHolder.getItemPostShareLayout().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DialogManager.showToast(getActivity(), "Share is pressed");
+                    }
+                });
+                viewHolder.getItemPostLikeLayout().setOnClickListener(new View.OnClickListener() {
+                    boolean isLiked=false;
+                    @Override
+                    public void onClick(View view) {
+                        if(isLiked) viewHolder.getItemPostLikeImageView().setImageResource(R.drawable.ic_unlike);
+                        else viewHolder.getItemPostLikeImageView().setImageResource(R.drawable.ic_like);
+                        isLiked=!isLiked;
+                    }
+                });
             }
         });
         postsRecyclerView.setAdapter(postsRecyclerAdapter);

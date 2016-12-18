@@ -1,5 +1,6 @@
 package com.appytech.businessway.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,12 @@ public class CompleteProfileActivity extends AppCompatActivity {
         gendersList.add(getString(R.string.label_female));
         genderSpinnerAdapter.setDataList(gendersList);
 
+        List positionsList=new ArrayList();
+        positionsList.add("Developer");
+        positionsList.add("Engineer");
+        positionsList.add("Doctor");
+        positionSpinnerAdapter.setDataList(positionsList);
+
         listCountry();
 
         profileImageView=(ImageView)findViewById(R.id.complete_profile_profile_imageView);
@@ -60,6 +67,14 @@ public class CompleteProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editProfileImage();
+            }
+        });
+
+        findViewById(R.id.complete_profile_finish_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CompleteProfileActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
@@ -81,7 +96,7 @@ public class CompleteProfileActivity extends AppCompatActivity {
     }
 
     private void listIndustry(){
-        APIManager.listIndustry(this, new APIManager.ResponseListener<ListIndustryModel>() {
+        APIManager.listIndustry(this, true, new APIManager.ResponseListener<ListIndustryModel>() {
 
             @Override
             public void done(ListIndustryModel dataModel) {
@@ -102,7 +117,7 @@ public class CompleteProfileActivity extends AppCompatActivity {
     }
 
     private void listField(int fieldId){
-        APIManager.listField(this, fieldId, new APIManager.ResponseListener<ListFieldModel>() {
+        APIManager.listField(this, fieldId, true, new APIManager.ResponseListener<ListFieldModel>() {
 
             @Override
             public void done(ListFieldModel dataModel) {
@@ -123,7 +138,7 @@ public class CompleteProfileActivity extends AppCompatActivity {
     }
 
     private void listCountry(){
-        APIManager.listCountry(this, new APIManager.ResponseListener<ListCountryModel>() {
+        APIManager.listCountry(this, true, new APIManager.ResponseListener<ListCountryModel>() {
 
             @Override
             public void done(ListCountryModel dataModel) {
@@ -154,7 +169,7 @@ public class CompleteProfileActivity extends AppCompatActivity {
     }
 
     private void listCity(int countryId){
-        APIManager.listCity(this, countryId, new APIManager.ResponseListener<ListCityModel>() {
+        APIManager.listCity(this, countryId, true, new APIManager.ResponseListener<ListCityModel>() {
 
             @Override
             public void done(ListCityModel dataModel) {
@@ -185,7 +200,7 @@ public class CompleteProfileActivity extends AppCompatActivity {
     }
 
     private void listDistrict(int cityId){
-        APIManager.listDistrict(this, cityId, new APIManager.ResponseListener<ListDistrictModel>() {
+        APIManager.listDistrict(this, cityId, true, new APIManager.ResponseListener<ListDistrictModel>() {
 
             @Override
             public void done(ListDistrictModel dataModel) {

@@ -71,7 +71,7 @@
                     android:layout_weight="5"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_like" />
+                    android:src="@drawable/ic_unlike" />
 
                 <TextView
                     android:layout_width="wrap_content"
